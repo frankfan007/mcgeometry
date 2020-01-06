@@ -12,6 +12,9 @@
 
 % Please run this section by section to edit parameters as needed
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %% ================================================= PATH SETTINGS ================================================== %%
 
 % -------------------------------------------------------------------------
