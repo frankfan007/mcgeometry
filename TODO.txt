@@ -1,2 +1,3 @@
+- shorten wrapper/shell MonteCarlo... scripts, set functions to create default settings
 - support multiple absorption values in MCX input file
 - support arbitrary layer concatenation (not just 2 or 3 layer)
