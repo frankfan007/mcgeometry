@@ -1,5 +1,7 @@
 function [output_cell,output_answer]=get_tcd_envelope(t_nirs,tcd,varargin)
-
+%
+% [output_cell,output_answer]=get_tcd_envelope(t_nirs,tcd,varargin)
+%
 % obtains the upper and lower envelopes of the TCD signal
 
 % input:
@@ -15,6 +17,9 @@ function [output_cell,output_answer]=get_tcd_envelope(t_nirs,tcd,varargin)
 %   output_cell{5}: right TCD lower envelope array
 %   output_cell{6}: right TCD upper envelope array
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %% quality check
 
 if isempty(varargin)

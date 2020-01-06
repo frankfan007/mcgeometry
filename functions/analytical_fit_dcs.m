@@ -1,7 +1,11 @@
 function [BFi_arr,beta_arr]=analytical_fit_dcs(g2_data,tau,fit_options)
-
+%
+% [BFi_arr,beta_arr]=analytical_fit_dcs(g2_data,tau,fit_options)
+%
 % returns fitted BFi and beta from an array of g2 (autocorrelation) curves, taus, and input parameter set
-
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+%
 % input:
 %   g2_data: array of autocorrelation values for each tau, detector, and timepoint, dimension (ntau,ndetect,ntimepoints)
 %   tau: array of tau values for the autocorrelation, dimension (1,ntau)
@@ -17,8 +21,12 @@ function [BFi_arr,beta_arr]=analytical_fit_dcs(g2_data,tau,fit_options)
 
 % output:
 %   BFi_arr: array of BFi values for each detector channel and timepoint, dimension (ntimepoints,ndetect)
-%   beta_arr: array of beta values for each detector channel and timepoint, dimension (ntimepoints,ndetect)
-
+%   beta_arr: array of beta values for each detector channel and timepoint,
+%   dimension (ntimepoints,ndetect)
+%
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
+%
 %% setting variables
 
 x0=fit_options.x0; 

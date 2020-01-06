@@ -1,7 +1,11 @@
    function volume_structure=generate_mri_mesh(volume_direc,toolbox_direc,volume_name,mesh_filename,varargin);
 
-%% generates mesh from volume file
-
+% volume_structure=generate_mri_mesh(volume_direc,toolbox_direc,volume_name,mesh_filename,varargin);
+%
+% generates mesh from volume file
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+%
 % input:
 %   volume_dir: directory where volume is stored
 %   toolbox_dir: directory where toolbox functions are stored
@@ -20,7 +24,9 @@
 %           each cell will have an element array with the element list of the mesh, dimension (nnodes,5)
 %       all_face: cell of faces for each tissue layer's tetrahedral mesh, dimension (1,number of tissue layers)
 %           each cell will have an face array with the mesh surface element list of the tetrahedral mesh, dimension (nnodes,4)
-
+%
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %% checking if volume exists
 
 if exist([volume_direc filesep volume_name],'file')

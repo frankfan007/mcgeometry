@@ -1,5 +1,7 @@
 function [BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs(g2_data,fit_options,mc_his,region_splits,analytical_BFi)
-
+%
+% [BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs(g2_data,fit_options,mc_his,region_splits,analytical_BFi)
+%
 % loops through timepoints of array with g2 data and fits each timepoint for BFi and beta
 
 % input:
@@ -44,7 +46,10 @@ function [BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs(g2_data,f
 %       thicknesses, or if fitting for just one
 %       if fitting for just one: dimension (1,number of timepoints)
 %       if fitting for multiple: dimension (maximum superficial thickness, maximum middle thickness, number of timepoints)
-
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %% setting variables
 
 input_his_array=mc_his.his_array;

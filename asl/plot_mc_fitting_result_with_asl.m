@@ -1,7 +1,11 @@
 function plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,rhos_arr,region_splits,asl_file,baseline_period,save_plot_fullname);
 
+% plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,rhos_arr,region_splits,asl_file,baseline_period,save_plot_fullname)
+%
 % plot Monte Carlo fitting results
 % 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+%
 % input:
 %   BFi_arr: array of fitted BFi values
 %       either dimension (nchannels, ntimepoints)
@@ -14,6 +18,10 @@ function plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,rhos_arr,regi
 %       get_region_splits.m
 %   save_plot_fullname: full filename to save plot
 %   asl_file: name of asl file to load
+%
+% this function is part of the mcgeometry toolbox,
+% (https://github.com/wumelissa/mc_geometry)
+%%
 
 asl_structure=load(asl_file);
 

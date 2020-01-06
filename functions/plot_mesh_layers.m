@@ -1,9 +1,16 @@
 function plot_mesh_layers(all_node,all_face)
-
+%
+% plot_mesh_layers(all_node,all_face)
+%
 % plots mesh for volume with multiple tissue types
 % input:
 %   all_node: cell with arrays of nodes for each tissue layer, dimension (1, ntissue layers)
 %   all_face: cell with arrays of faces for each tissue layer, dimension (1, ntissue layers)
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
+%%
 
 face_colors=[102 102 255;
     255 128 0;

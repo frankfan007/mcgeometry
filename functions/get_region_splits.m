@@ -1,5 +1,7 @@
 function regions_to_split=get_region_splits(sup_thicknesses,mid_thicknesses,total_layers)
-
+%
+% regions_to_split=get_region_splits(sup_thicknesses,mid_thicknesses,total_layers)
+%
 % creates cell array containing arrays to split layers by
 
 % input: 
@@ -10,7 +12,10 @@ function regions_to_split=get_region_splits(sup_thicknesses,mid_thicknesses,tota
 % output:
 %   regions_to_split: cell array with all combinations of superficial and middle thicknesses
 %       dimension (length(sup_thicknesses) * length(mid_thicknesses),3)
-
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 if isempty(mid_thicknesses)

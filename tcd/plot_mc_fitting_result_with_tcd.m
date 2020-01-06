@@ -1,5 +1,7 @@
 function plot_mc_fitting_result_with_tcd(BFi_arr,beta_arr,time_arr,analytical_fit_options,tcd_struct,save_plot_fullname);
-
+%
+% plot_mc_fitting_result_with_tcd(BFi_arr,beta_arr,time_arr,analytical_fit_options,tcd_struct,save_plot_fullname);
+%
 % plot Monte Carlo fitting results
 % 
 % input:
@@ -21,6 +23,9 @@ function plot_mc_fitting_result_with_tcd(BFi_arr,beta_arr,time_arr,analytical_fi
 %       right_min: right TCD lower envelope
 %       right_max: right TCD upper envelope
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 baseline_period=analytical_fit_options.baseline_period;

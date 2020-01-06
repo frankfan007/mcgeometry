@@ -1,10 +1,15 @@
 function input_file_status=return_input_file_status(input_filename);
-
+%
+% input_file_status=return_input_file_status(input_filename);
+%
 % returns input file status
 %
 % input:
 %   input_filename: full filename of input file
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %% checking file existence
 
 if isempty(input_filename) || exist(input_filename,'dir')

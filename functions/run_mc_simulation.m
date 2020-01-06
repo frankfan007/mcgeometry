@@ -1,5 +1,7 @@
 function run_mc_simulation(dir_struct,mc_param)
-
+%
+% run_mc_simulation(dir_struct,mc_param)
+%
 % runs Monte Carlo simulation
 % 
 % input:
@@ -10,6 +12,9 @@ function run_mc_simulation(dir_struct,mc_param)
 %       gpu_number: number of GPU to use
 %       max_detected_photons: maximum number of detected photons
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 idx=regexp(dir_struct.input_filename,'/','once');

@@ -1,11 +1,16 @@
 function print_box(text1,subtext,box_width);
-
+%
+% print_box(text1,subtext,box_width);
+%
 % prints a nice text box
 % input:
 %   text1: title text
 %   subtext: subtext
 %   box_width: width of box
-
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 text_length=length(text1);

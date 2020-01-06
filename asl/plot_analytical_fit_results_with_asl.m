@@ -1,7 +1,11 @@
 function plot_analytical_fit_results_with_asl(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options,asl_file)
-
-% plot analytical fitting results
-
+%
+% plot_analytical_fit_results_with_asl(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options,asl_file)
+%
+% plots analytical BFi fitting results
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+%
 % input:
 %   analytical_BFi: array with analytical BFi results, dimension (ntimepoints,nchannels)
 %   analytical_beta: array with analytical beta results, dimension (ntimepoints,nchannels)
@@ -13,7 +17,8 @@ function plot_analytical_fit_results_with_asl(analytical_BFi,analytical_beta,int
 %       save_filename: full filename to save figure
 %   asl_file: name of asl file to load
 
-% this function is part of the mcgeometry toolbox
+% this function is part of the mcgeometry toolbox,
+% (https://github.com/wumelissa/mc_geometry)
 
 %%
 

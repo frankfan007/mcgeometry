@@ -1,5 +1,7 @@
 function ref_param=wrap_probe(ref_param)
-
+%
+% ref_param=wrap_probe(ref_param)
+%
 % determines source and detector locations on a given volume
 
 % input:
@@ -25,6 +27,10 @@ function ref_param=wrap_probe(ref_param)
 %           the second index is the source
 %       fiducial_point: fiducial location (manually chosen or fiducial driven)
 %       rotate_deg: array of rotation degrees
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 
 %% setting variables
 

@@ -1,11 +1,15 @@
 function generate_bin_vol(dir_struct,volume_name,include_fiducial,varargin)
-
+% 
+% generate_bin_vol(dir_struct,volume_name,include_fiducial,varargin)
+%
 % segments scalp, skull, and CSF from an MRI structural scan
 
 % Majority of the function is written by:
 % Perdue KL, Diamond SG; 
 % T1 magnetic resonance imaging head segmentation for diffuse optical tomography and electroencephalography. 
 % J. Biomed. Opt. 19(2):026011.  doi:10.1117/1.JBO.19.2.026011.
+
+% edited by Melissa Wu <mwu22@mgh.harvard.edu>
 
 % Uses Freesurfer brain surfaces and freesurfer utilities
 % Also expects that iso2mesh is in your file path
@@ -20,6 +24,8 @@ function generate_bin_vol(dir_struct,volume_name,include_fiducial,varargin)
 %   varargin:
 %       if volume contains fiducial marker, varargin{1}: name of volume file with vitamin E to be saved
 
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 addpath(dir_struct.freesurfer_dir);

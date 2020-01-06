@@ -1,5 +1,7 @@
 function write_input_file(input_filename,mc_param)
-
+%
+% write_input_file(input_filename,mc_param)
+%
 % input:
 %   input_filename: full filename of input file
 %   mc_param: structure with subfields
@@ -16,6 +18,9 @@ function write_input_file(input_filename,mc_param)
 %       detectors: array of detector positions, dimension (ndetectors, 3)
 %       detector_radii: array of detector radii, dimension (1,ndetectors)
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 % creating file content array

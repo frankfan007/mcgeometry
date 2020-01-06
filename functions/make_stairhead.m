@@ -8,6 +8,10 @@ function stackhead=make_stairhead(head)
 % output:
 %   stackhead: volume that was "eroded", dimension (nx,ny,nz)
 
+% author: Stefan Carp, <stefan.carp@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
+
 %%
 
 savehead=head;

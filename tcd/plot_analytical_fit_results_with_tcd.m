@@ -1,5 +1,7 @@
 function plot_analytical_fit_results_with_tcd(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options,tcd_struct)
-
+%
+% plot_analytical_fit_results_with_tcd(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options,tcd_struct)
+%
 % plot analytical fitting results
 
 % input:
@@ -19,6 +21,9 @@ function plot_analytical_fit_results_with_tcd(analytical_BFi,analytical_beta,int
 %       right_min: right TCD lower envelope
 %       right_max: right TCD upper envelope
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 baseline_period=analytical_fit_options.baseline_period;

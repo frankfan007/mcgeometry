@@ -1,6 +1,7 @@
-
 function y = semi_infinite_g2(x,taus,fit_options)
-
+%
+% y = semi_infinite_g2(x,taus,fit_options)
+%
 % returns autocorrelation
 
 % input:
@@ -13,6 +14,9 @@ function y = semi_infinite_g2(x,taus,fit_options)
 %       lambda_dcs: wavelength, mm-1
 %       rho: source-detector distance, mm
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %% constant values, variable assignment
 
 mu_a = fit_options.mu_a;

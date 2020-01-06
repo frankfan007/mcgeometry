@@ -1,7 +1,14 @@
 function dcsdatastruct=prepare_migraine_dcs_data(dcs_file)
-
+%
+% dcsdatastruct=prepare_migraine_dcs_data(dcs_file)
+%
 % function specifically to process Juliette and Phoebe's migraine data
 % input file is ***_SyncData.mat
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
+%%
 
 load(dcs_file.measurement_file);
 

@@ -1,5 +1,7 @@
 function result=mc_g2_Db_beta_hold_layer(s,tau,expg2,num_dets,mts,exps,g1_norms,num_layers,hold_layer_indices,hold_layer_values,k0,varargin)
-
+%
+% result=mc_g2_Db_beta_hold_layer(s,tau,expg2,num_dets,mts,exps,g1_norms,num_layers,hold_layer_indices,hold_layer_values,k0,varargin)
+%
 % returns g2 for each detector named in the chs variable
 % must receive either single Db value, or one Db for each tissue type
 % same for mu_a and mu_sp
@@ -22,6 +24,10 @@ function result=mc_g2_Db_beta_hold_layer(s,tau,expg2,num_dets,mts,exps,g1_norms,
 %   varargin: 
 %       varargin{1}: flag to show fit figure        
 
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 % parsing out the inputs and setting the Db "hold" values if there are any

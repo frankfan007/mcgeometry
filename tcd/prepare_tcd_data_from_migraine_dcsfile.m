@@ -1,5 +1,7 @@
 function [tcd_struct,output_answer,varargout]=prepare_tcd_data_from_migraine_dcsfile(dcs_file,time_arr,varargin)
-
+%
+% [tcd_struct,output_answer,varargout]=prepare_tcd_data_from_migraine_dcsfile(dcs_file,time_arr,varargin)
+%
 % specifically to process TCD data from Juliette and Phoebe's migraine data
 
 % input
@@ -21,6 +23,9 @@ function [tcd_struct,output_answer,varargout]=prepare_tcd_data_from_migraine_dcs
 %   varargout:
 %       varargout{1}: array denoting baseline and hypercapnia periods, dimension (nperiods,2)
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 load(dcs_file.measurement_file)

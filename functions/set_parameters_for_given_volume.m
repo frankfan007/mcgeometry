@@ -1,6 +1,8 @@
 
 function [dir_struct,ref_param,mc_param]=set_parameters_for_given_volume(dir_struct,ref_param,mc_param,volume_cfg)
-
+%
+% [dir_struct,ref_param,mc_param]=set_parameters_for_given_volume(dir_struct,ref_param,mc_param,volume_cfg)
+%
 % setting parameters for given volume
 % input:
 %   dir_struct: structure with fields
@@ -24,7 +26,10 @@ function [dir_struct,ref_param,mc_param]=set_parameters_for_given_volume(dir_str
 %   mc_param: added fields include
 %       volume_name: name of volume
 %       meshvol_name: name of mesh that accompanies volume
-
+%
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 if volume_cfg.multi_layer_slab + volume_cfg.multi_layer_head + volume_cfg.subj_specific_mri < 1

@@ -1,5 +1,7 @@
 function [node_closest_to_point,plane,point_unit_vec]=get_normal_plane_from_point(node,face,specified_point)
-
+%
+% [node_closest_to_point,plane,point_unit_vec]=get_normal_plane_from_point(node,face,specified_point)
+%
 % obtains normal plane to center of volume from specified point on volume surface
 
 % input:
@@ -12,6 +14,9 @@ function [node_closest_to_point,plane,point_unit_vec]=get_normal_plane_from_poin
 %   plane: coordinates that determine normal plane from point, dimension (3,3)
 %   point_unit_vec: unit normal vector from node closest to point
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 all_distances_from_isosurf=[];
