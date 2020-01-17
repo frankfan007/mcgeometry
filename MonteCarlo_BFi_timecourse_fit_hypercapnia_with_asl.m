@@ -15,11 +15,20 @@
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
+
+%%
+
+close all hidden
+clearvars
+
 %% ================================================= PATH SETTINGS ================================================== %%
 
 % -------------------------------------------------------------------------
 % EDIT: path settings
 % -------------------------------------------------------------------------
+
+subject_id='013';
+session='2';
 
 % ================ freesurfer directory ================ %
 
@@ -45,15 +54,15 @@ else
 end
 
 % working folder where processed data and volume will be saved
-working_folder_unix=['/space/blinky/4/users/hypercapnia/Subject013/Session2/CW-DCS/'];
+working_folder_unix=['/space/blinky/4/users/hypercapnia/Subject' subject_id '/Session' session '/'];
 working_folder=[wd_serverpath working_folder_unix]; % hack for Windows
 if ~exist(working_folder,'dir'), mkdir(working_folder);end
 
 % raw data folder where DCS and MRI data is stored
 raw_data_basepath=[raw_data_serverpath '/space/blinky/4/users/hypercapnia/'];
-dir_struct.dcs_file_dir=[raw_data_basepath 'Subject013/Session2/CW-DCS']; % directory where DCS data is stored
-dir_struct.mr_dir=[raw_data_basepath 'Subject013_recon/mri/']; % directory where T1 is stored
-dir_struct.asl_dir=[raw_data_basepath 'Subject013/perfusion/'];
+dir_struct.dcs_file_dir=[raw_data_basepath 'Subject' subject_id '/Session' session '/CW-DCS/']; % directory where DCS data is stored
+dir_struct.mr_dir=[raw_data_basepath 'Subject' subject_id '_recon/mri/']; % directory where T1 is stored
+dir_struct.asl_dir=[raw_data_basepath 'Subject' subject_id filesep 'perfusion' filesep];
 
 % subject-based MRI volume directory, created in working folder
 dir_struct.volume_dir=[working_folder filesep 'volume'];
@@ -97,7 +106,9 @@ gen_options.heat_plot=0;
 % -------------------------------------------------------------------------
 
 % DCS file information
-dcs_file.filename='press_mod_1_run003_g2.mat'; % EDIT
+dcs_file.dcsraw=0;
+dcs_file.fastdcs=1;
+dcs_file.filename='press_hyp_1_run004_g2.mat'; % EDIT
 dcs_file.g2freq=1;
 dcs_file.det_averaging={1:1,2:4}; 
 
@@ -143,16 +154,16 @@ analytical_fit_options.lsq_options = optimoptions('lsqcurvefit','TolFun',1e-8,'D
 % -------------------------------------------------------------------------
 
 % which volume to use
-volume_cfg.multi_layer_slab=0;
-volume_cfg.multi_layer_head=1;
+volume_cfg.multi_layer_slab=1;
+volume_cfg.multi_layer_head=0;
 volume_cfg.subj_specific_mri=0;
 
 % input and volume file names
-mc_param.inp_filename='stairhead_5_30_mm_085_mus_rotate_0'; % REQUIRED; write without extension .inp ; will use input file if exists or create one under variable name
+mc_param.inp_filename='LargeSlab_MultiLyr1mm_085_mus'; % REQUIRED; write without extension .inp ; will use input file if exists or create one under variable name
 mc_param.volume_name_noext=''; % volume name without extension - leave EMPTY if not using subject-specific MRI volume
 
 % for wrapping probe around volume - only needed if creating new input file
-ref_param.has_fiducial=1; % for subject-specific MRI generation, leave 0 if using multi-layer head or slab
+ref_param.has_fiducial=0; % for subject-specific MRI generation, leave 0 if using multi-layer head or slab
 ref_param.use_default_fiducial=1; % flag: 1 to use default fiducial location and 0 to choose your own
 ref_param.det_distances=[5 30]; % mm
 ref_param.fiducial_pos=[]; % if not empty, will automatically use this value as fiducial position
@@ -164,19 +175,19 @@ mc_param.mus=0.85; % either one value for each tissue layer, or single value for
 mc_param.mua=0.01; % single value for all tissue layers
 mc_param.n=1.37; 
 mc_param.g=0.01; 
-mc_param.num_phot_launched=1000000000; 
+mc_param.num_phot_launched=1e9; 
 
 % for Monte Carlo forward simulation - please see MCX documentation
 mc_param.gpu_number=1; 
-mc_param.max_detected_photons=3000000; % max number of detected photons 
+mc_param.max_detected_photons=3e6; % max number of detected photons 
 
 % maximum number of saved photons from the MC history file
-mc_param.max_saved_photons=100000; % number of detected photons to save
+mc_param.max_saved_photons=1e5; % number of detected photons to save
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% =============================================== ASL FILE SETTINGS ================================================ %%
 
-asl_filename='005_SURROUND.mat';
+asl_filename='008_SURROUND.mat';
 
 full_asl_filename=[dir_struct.asl_dir filesep asl_filename];
 
@@ -196,16 +207,16 @@ save_filename=[dcs_filename '_' mc_param.inp_filename];
 % IF ONLY FITTING A SINGLE COMBINATION OF LAYER CONCATENATIONS
 % comment this out and use sup_thickness_arr/mid_thickness_arr variables if fitting multiple
 % concatenate_tissue_layers_array={1,2,3,4:5}; % EDIT
-concatenate_tissue_layers_array={1:5,6:14,15:22};
+% concatenate_tissue_layers_array={1:5,6:10,11:22};
 
 % IF FITTING MULTIPLE LAYER CONCATENATIONS
 % comment this out and use concatenate_tissue_layers_arr variable if fitting single one
-% sup_thickness_arr=1:2;
-% mid_thickness_arr=8;
+sup_thickness_arr=1:7;
+mid_thickness_arr=4:13;
 
 % fitting related
 fit_options.hold_superficial=1; % flag to set superficial BFi to short separation analytical BFi
-fit_options.tau_range=4:110;
+fit_options.tau_range=10:115;
 fit_options.mu_a=[0.0075 0.0248 0.0287];
 fit_options.indices_of_mc_dets_to_use=[1 2];
 fit_options.indices_of_dcs_dets_to_use=[1 2];
@@ -230,7 +241,7 @@ fit_options.k0=2*pi*fit_options.n/fit_options.wave;
 
 % processing related
 fit_options.do_plot=0;
-fit_options.use_gpu=0;
+fit_options.use_gpu=1;
 fit_options.save_plot=1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -252,7 +263,11 @@ if gen_options.full_timecourse
 end
 
 % EDIT: PROJECT SPECIFIC DCS DATA PREPARATION FOR DCS PRE-PROCESSING
-dcsdatastruct=prepare_fastdcs_data(dcs_file);
+if dcs_file.fastdcs
+    dcsdatastruct=prepare_fastdcs_data(dcs_file);
+elseif dcs_file.dcsraw
+    dcsdatastruct=prepare_dcsraw_data(dcs_file);
+end
 
 % pre-processing DCS data
 [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct);
@@ -266,7 +281,7 @@ fit_options.tau=tau';
 % fit for BFi and beta and plot
 [analytical_BFi,analytical_beta]=analytical_fit_dcs(g2_data,tau,analytical_fit_options);
 
-analytical_fit_options.save_filename=[working_folder filesep dcs_filename];
+analytical_fit_options.save_filename=[dir_struct.dcs_file_dir filesep dcs_filename];
 plot_analytical_fit_results_with_asl(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options,full_asl_filename)
 
 % -------------------------------------------------------------------------
@@ -326,20 +341,16 @@ if isempty(fit_options.tpts_to_fit)
     fit_options.tpts_to_fit=1:size(g2_data,3);
 end
 
-if fit_options.save_plot
-    save_plot_fullname=[dir_struct.mc_save_dir filesep save_filename];
-else
-    save_plot_fullname='';
-end
+save_plot_fullname=[dir_struct.mc_save_dir filesep save_filename];
 
 % fit
-[BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs(g2_data,fit_options,mc_his,region_splits,analytical_BFi);
-plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,analytical_fit_options.rhos_arr,region_splits,full_asl_filename,analytical_fit_options.baseline_period,save_plot_fullname);
+[BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs_parallel(g2_data,fit_options,mc_his,region_splits,analytical_BFi);
+plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,analytical_fit_options.rhos_arr,region_splits,full_asl_filename,analytical_BFi,analytical_beta,analytical_fit_options.baseline_period,fit_options.save_plot,save_plot_fullname);
 
-save([save_plot_fullname '.mat'],...
+save([save_plot_fullname '_full_timecourse.mat'],...
     'dir_struct','gen_options','full_asl_filename',...
     'analytical_fit_options','analytical_BFi','analytical_beta',...
-    'BFi_arr','beta_arr','rmse_arr','output_stats_arr',...
+    'BFi_arr','beta_arr','rmse_arr','time_arr',...
     'dcs_file','dcsdatastruct',...
     'volume_cfg',...
     'ref_param',...

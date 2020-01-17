@@ -1,4 +1,4 @@
-THIS TOOLBOX IS CURRENTLY BEING DEVELOPED AND IS IN PROGRESS
+THIS TOOLBOX IS CURRENTLY BEING DEVELOPED FOR PUBLIC USE AND IS IN PROGRESS
 
 mcgeometry is a Monte-Carlo based fitting toolbox for diffuse correlation spectroscopy data
 

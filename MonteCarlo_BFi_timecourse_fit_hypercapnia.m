@@ -15,11 +15,15 @@
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
+
 %% ================================================= PATH SETTINGS ================================================== %%
 
 % -------------------------------------------------------------------------
 % EDIT: path settings
 % -------------------------------------------------------------------------
+
+subject_id='021';
+session='2';
 
 % ================ freesurfer directory ================ %
 
@@ -45,14 +49,14 @@ else
 end
 
 % working folder where processed data and volume will be saved
-working_folder_unix=['/space/blinky/4/users/hypercapnia/Subject016/Session2/'];
+working_folder_unix=['/space/blinky/4/users/hypercapnia/Subject' subject_id '/Session' session '/'];
 working_folder=[wd_serverpath working_folder_unix]; % hack for Windows
 if ~exist(working_folder,'dir'), mkdir(working_folder);end
 
 % raw data folder where DCS and MRI data is stored
 raw_data_basepath=[raw_data_serverpath '/space/blinky/4/users/hypercapnia/'];
-dir_struct.dcs_file_dir=[raw_data_basepath 'Subject016/Session2/CW-DCS']; % directory where DCS data is stored
-dir_struct.mr_dir=[raw_data_basepath 'Subject016_recon/mri/']; % directory where T1 is stored
+dir_struct.dcs_file_dir=[raw_data_basepath 'Subject' subject_id '/Session' session '/CW-DCS/Standardized_Processed_Data/g2_Data_Hyp/']; % directory where DCS data is stored
+dir_struct.mr_dir=[raw_data_basepath 'Subject' subject_id '_recon/mri/']; % directory where T1 is stored
 
 % subject-based MRI volume directory, created in working folder
 dir_struct.volume_dir=[working_folder filesep 'volume'];
@@ -96,16 +100,16 @@ gen_options.heat_plot=0;
 % -------------------------------------------------------------------------
 
 % DCS file information
-dcs_file.filename='co2_016s2_S1_LF_4.dcsraw'; % EDIT
-dcs_file.g2freq=10;
-dcs_file.det_averaging={1:1,2:4,5:7}; 
+dcs_file.filename='dcs_run004_Hyp_g2_Freq_1.mat'; % EDIT
+dcs_file.g2freq=1;
+dcs_file.det_averaging={1:1,2:4}; 
 
 % average data information
 % the following are parameters for averaging the timecourse, and will be processed in the following order:
 % decimate first, then moving mean, then averaging
 dcs_file.decimate_factor=1; 
 dcs_file.moving_mean_window_length=1; 
-dcs_file.avg_span=100; 
+dcs_file.avg_span=10; 
 
 % -------------------------------------------------------------------------
 % EDIT: settings for BFi and beta fitting
@@ -116,8 +120,8 @@ analytical_fit_options.save_plot=1;
 % more likely to be changed
 analytical_fit_options.mu_a = 0.01; % mm-1
 analytical_fit_options.mu_s = 1; % mm-1
-analytical_fit_options.lambda_dcs = 850*1e-6; % mm-1
-analytical_fit_options.rhos_arr=[5 25 30]; % mm
+analytical_fit_options.lambda_dcs = 830*1e-6; % mm-1
+analytical_fit_options.rhos_arr=[5 30]; % mm
 analytical_fit_options.ft=10; % first tau
 analytical_fit_options.lt=116; % last tau
 analytical_fit_options.debug_plot=0; 
@@ -145,18 +149,18 @@ volume_cfg.multi_layer_head=1;
 volume_cfg.subj_specific_mri=0;
 
 % input and volume file names
-mc_param.inp_filename='stairhead_5_25_30_mm_085_mus_rotate_0'; % REQUIRED; write without extension .inp ; will use input file if exists or create one under variable name
+mc_param.inp_filename='stairhead_5_30_mm_085_mus_rotate_0'; % REQUIRED; write without extension .inp ; will use input file if exists or create one under variable name
 mc_param.volume_name_noext=''; % volume name without extension - leave EMPTY if not using subject-specific MRI volume
 
 % for wrapping probe around volume - only needed if creating new input file
 ref_param.has_fiducial=0; % for subject-specific MRI generation, leave 0 if using multi-layer head or slab
 ref_param.use_default_fiducial=1; % flag: 1 to use default fiducial location and 0 to choose your own
-ref_param.det_distances=[5 25 30]; % mm
+ref_param.det_distances=[5 30]; % mm
 ref_param.fiducial_pos=[]; % if not empty, will automatically use this value as fiducial position
 ref_param.rotate_deg=0; % if not empty, will automatically use this value as rotational degree
 
 % for input file generation
-mc_param.det_radii=[0.7 1 1]; % in mm
+mc_param.det_radii=[0.7 1]; % in mm
 mc_param.mus=0.85; % either one value for each tissue layer, or single value for all tissue layers
 mc_param.mua=0.01; % single value for all tissue layers
 mc_param.n=1.37; 
@@ -197,25 +201,25 @@ concatenate_tissue_layers_array={1:6,7:14,15:22};
 fit_options.hold_superficial=1; % flag to set superficial BFi to short separation analytical BFi
 fit_options.tau_range=4:110;
 fit_options.mu_a=[0.0075 0.0248 0.0287];
-fit_options.indices_of_mc_dets_to_use=[1 2 3];
-fit_options.indices_of_dcs_dets_to_use=[1 2 3];
-fit_options.beta_initial_guess=[0.5 0.5 0.5];
+fit_options.indices_of_mc_dets_to_use=[1 2];
+fit_options.indices_of_dcs_dets_to_use=[1 2];
+fit_options.beta_initial_guess=[0.5 0.5];
 fit_options.bfi_initial_guess=[8e-6]; 
 fit_options.hold_layer_indices=[1 2]; % MUST BE CONSISTENT WITH HOLD_SUPERFICIAL FLAG
 fit_options.hold_layer_values=[nan 2e-8]; % if hold_superficial flag is 1, put a nan in the first index
 fit_options.lsq_options=optimoptions('lsqcurvefit','TolFun',1e-5,'TolX',1e-3,'MaxFunEvals',1e5,'MaxIter',1e5,'Display','off');
 
 % upper and lower bounds for fitting
-fit_options.beta_lb=[0 0 0];
+fit_options.beta_lb=[0 0];
 fit_options.bfi_lb=[0];
-fit_options.beta_ub=[0.6 0.6 0.6];
+fit_options.beta_ub=[0.6 0.6];
 fit_options.bfi_ub=[inf];
 
 fit_options.tpts_to_fit=[]; % set to empty if you want to fit all timepoints in g2 array; otherwise, specify timepoints to fit
 
 % measurement related
 fit_options.n=1.37;
-fit_options.wave=850e-6;
+fit_options.wave=830e-6;
 fit_options.k0=2*pi*fit_options.n/fit_options.wave;
 
 % processing related
@@ -242,7 +246,7 @@ if gen_options.full_timecourse
 end
 
 % EDIT: PROJECT SPECIFIC DCS DATA PREPARATION FOR DCS PRE-PROCESSING
-dcsdatastruct=prepare_dcsraw_data(dcs_file);
+dcsdatastruct=prepare_fastdcs_data(dcs_file);
 
 % pre-processing DCS data
 [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct);
@@ -323,7 +327,7 @@ else
 end
 
 % fit
-[BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs(g2_data,fit_options,mc_his,region_splits,analytical_BFi);
+[BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs_parallel(g2_data,fit_options,mc_his,region_splits,analytical_BFi);
 plot_mc_fitting_result(BFi_arr,beta_arr,time_arr,analytical_fit_options.rhos_arr,region_splits,save_plot_fullname);
 
 save([save_plot_fullname '.mat'],...
