@@ -2,19 +2,13 @@
  % ====================================== MONTE CARLO BASED BFI FITTING SCRIPT ====================================== %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% This script fits diffuse correlation spectroscopy data against a Monte Carlo based photon migration forward simulation 
-% The volume used in the Monte Carlo simulation can be chosen from either a multi-layer slab, a multi-layer sample head, 
-% or a subject-specific MRI scan provided by the user. The multi-layer sample head was derived from a FreeSurfer sample 
-% T1 structural scan
-% and subsequently post-processed using iterative image erosion into a 22-layer head volume
-% For the slab and sample head, each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
+% This script fits diffuse correlation spectroscopy data against a Monte-Carlo based photon migration forward simulation 
+% The MC simulation utilizes a head volume derived from an MRI scan of a human brain
+% The volume from the MRI scan was subsequently post-processed using iterative image erosion into a 22-layer head volume
+% Each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
 % optical properties for each tissue layer and source-detector locations on head surface
 
 % Please run this section by section to edit parameters as needed
-
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
-% this function is part of the mcgeometry toolbox,
-%(https://github.com/wumelissa/mc_geometry)
 
 %% ================================================= PATH SETTINGS ================================================== %%
 
@@ -22,7 +16,7 @@
 % EDIT: path settings
 % -------------------------------------------------------------------------
 
-subject_id='021';
+subject_id='013';
 session='2';
 
 % ================ freesurfer directory ================ %
@@ -55,7 +49,7 @@ if ~exist(working_folder,'dir'), mkdir(working_folder);end
 
 % raw data folder where DCS and MRI data is stored
 raw_data_basepath=[raw_data_serverpath '/space/blinky/4/users/hypercapnia/'];
-dir_struct.dcs_file_dir=[raw_data_basepath 'Subject' subject_id '/Session' session '/CW-DCS/Standardized_Processed_Data/g2_Data_Hyp/']; % directory where DCS data is stored
+dir_struct.dcs_file_dir=[raw_data_basepath 'Subject' subject_id '/Session' session '/CW-DCS/']; % directory where DCS data is stored
 dir_struct.mr_dir=[raw_data_basepath 'Subject' subject_id '_recon/mri/']; % directory where T1 is stored
 
 % subject-based MRI volume directory, created in working folder
@@ -100,7 +94,9 @@ gen_options.heat_plot=0;
 % -------------------------------------------------------------------------
 
 % DCS file information
-dcs_file.filename='dcs_run004_Hyp_g2_Freq_1.mat'; % EDIT
+dcs_file.dcsraw=0;
+dcs_file.fastdcs=1;
+dcs_file.filename='concatenated_pressmod_files.mat'; % EDIT
 dcs_file.g2freq=1;
 dcs_file.det_averaging={1:1,2:4}; 
 
@@ -109,18 +105,19 @@ dcs_file.det_averaging={1:1,2:4};
 % decimate first, then moving mean, then averaging
 dcs_file.decimate_factor=1; 
 dcs_file.moving_mean_window_length=1; 
-dcs_file.avg_span=10; 
+dcs_file.avg_span=3; 
 
 % -------------------------------------------------------------------------
 % EDIT: settings for BFi and beta fitting
 % -------------------------------------------------------------------------
 
+analytical_fit_options.baseline_period=[1 20]; % in seconds
 analytical_fit_options.save_plot=1;
 
 % more likely to be changed
 analytical_fit_options.mu_a = 0.01; % mm-1
 analytical_fit_options.mu_s = 1; % mm-1
-analytical_fit_options.lambda_dcs = 830*1e-6; % mm-1
+analytical_fit_options.lambda_dcs = 850*1e-6; % mm-1
 analytical_fit_options.rhos_arr=[5 30]; % mm
 analytical_fit_options.ft=10; % first tau
 analytical_fit_options.lt=116; % last tau
@@ -190,12 +187,12 @@ save_filename=[dcs_filename '_' mc_param.inp_filename];
 % IF ONLY FITTING A SINGLE COMBINATION OF LAYER CONCATENATIONS
 % comment this out and use sup_thickness_arr/mid_thickness_arr variables if fitting multiple
 % concatenate_tissue_layers_array={1,2,3,4:5}; % EDIT
-concatenate_tissue_layers_array={1:6,7:14,15:22};
+% concatenate_tissue_layers_array={1:6,7:14,15:22};
 
 % IF FITTING MULTIPLE LAYER CONCATENATIONS
 % comment this out and use concatenate_tissue_layers_arr variable if fitting single one
-% sup_thickness_arr=1:7;
-% mid_thickness_arr=4:13;
+sup_thickness_arr=1:7;
+mid_thickness_arr=4:13;
 
 % fitting related
 fit_options.hold_superficial=1; % flag to set superficial BFi to short separation analytical BFi
@@ -219,7 +216,7 @@ fit_options.tpts_to_fit=[]; % set to empty if you want to fit all timepoints in 
 
 % measurement related
 fit_options.n=1.37;
-fit_options.wave=830e-6;
+fit_options.wave=850e-6;
 fit_options.k0=2*pi*fit_options.n/fit_options.wave;
 
 % processing related
@@ -246,7 +243,11 @@ if gen_options.full_timecourse
 end
 
 % EDIT: PROJECT SPECIFIC DCS DATA PREPARATION FOR DCS PRE-PROCESSING
-dcsdatastruct=prepare_fastdcs_data(dcs_file);
+if dcs_file.fastdcs
+    dcsdatastruct=prepare_fastdcs_data(dcs_file);
+elseif dcs_file.dcsraw
+    dcsdatastruct=prepare_dcsraw_data(dcs_file);
+end
 
 % pre-processing DCS data
 [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct);
@@ -320,15 +321,11 @@ if isempty(fit_options.tpts_to_fit)
     fit_options.tpts_to_fit=1:size(g2_data,3);
 end
 
-if fit_options.save_plot
-    save_plot_fullname=[dir_struct.mc_save_dir filesep save_filename];
-else
-    save_plot_fullname='';
-end
+save_plot_fullname=[dir_struct.mc_save_dir filesep save_filename];
 
 % fit
 [BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs_parallel(g2_data,fit_options,mc_his,region_splits,analytical_BFi);
-plot_mc_fitting_result(BFi_arr,beta_arr,time_arr,analytical_fit_options.rhos_arr,region_splits,save_plot_fullname);
+plot_mc_fitting_result(BFi_arr,beta_arr,time_arr,rhos_arr,region_splits,analytical_BFi,analytical_beta,baseline_period,fit_options.save_plot,save_plot_fullname);
 
 save([save_plot_fullname '.mat'],...
     'dir_struct','gen_options',...
@@ -338,5 +335,5 @@ save([save_plot_fullname '.mat'],...
     'volume_cfg',...
     'ref_param',...
     'mc_param','mc_his',...
-    'fit_options','region_splits','BFi_arr','beta_arr','rmse_arr','output_stats_arr')
+    'fit_options','region_splits')
     

@@ -2,19 +2,13 @@
  % ====================================== MONTE CARLO BASED BFI FITTING SCRIPT ====================================== %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% This script fits diffuse correlation spectroscopy data against a Monte Carlo based photon migration forward simulation 
-% The volume used in the Monte Carlo simulation can be chosen from either a multi-layer slab, a multi-layer sample head, 
-% or a subject-specific MRI scan provided by the user. The multi-layer sample head was derived from a FreeSurfer sample 
-% T1 structural scan
-% and subsequently post-processed using iterative image erosion into a 22-layer head volume
-% For the slab and sample head, each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
+% This script fits diffuse correlation spectroscopy data against a Monte-Carlo based photon migration forward simulation 
+% The MC simulation utilizes a head volume derived from an MRI scan of a human brain
+% The volume from the MRI scan was subsequently post-processed using iterative image erosion into a 22-layer head volume
+% Each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
 % optical properties for each tissue layer and source-detector locations on head surface
 
 % Please run this section by section to edit parameters as needed
-
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
-% this function is part of the mcgeometry toolbox,
-%(https://github.com/wumelissa/mc_geometry)
 
 %%
 
@@ -108,7 +102,7 @@ gen_options.heat_plot=0;
 % DCS file information
 dcs_file.dcsraw=0;
 dcs_file.fastdcs=1;
-dcs_file.filename='press_hyp_1_run004_g2.mat'; % EDIT
+dcs_file.filename='press_mod_1_run003_g2.mat'; % EDIT
 dcs_file.g2freq=1;
 dcs_file.det_averaging={1:1,2:4}; 
 
@@ -154,12 +148,12 @@ analytical_fit_options.lsq_options = optimoptions('lsqcurvefit','TolFun',1e-8,'D
 % -------------------------------------------------------------------------
 
 % which volume to use
-volume_cfg.multi_layer_slab=1;
-volume_cfg.multi_layer_head=0;
+volume_cfg.multi_layer_slab=0;
+volume_cfg.multi_layer_head=1;
 volume_cfg.subj_specific_mri=0;
 
 % input and volume file names
-mc_param.inp_filename='LargeSlab_MultiLyr1mm_085_mus'; % REQUIRED; write without extension .inp ; will use input file if exists or create one under variable name
+mc_param.inp_filename='stairhead_5_30_mm_085_rotate_0'; % REQUIRED; write without extension .inp ; will use input file if exists or create one under variable name
 mc_param.volume_name_noext=''; % volume name without extension - leave EMPTY if not using subject-specific MRI volume
 
 % for wrapping probe around volume - only needed if creating new input file
@@ -187,7 +181,7 @@ mc_param.max_saved_photons=1e5; % number of detected photons to save
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% =============================================== ASL FILE SETTINGS ================================================ %%
 
-asl_filename='008_SURROUND.mat';
+asl_filename='005_SURROUND.mat';
 
 full_asl_filename=[dir_struct.asl_dir filesep asl_filename];
 

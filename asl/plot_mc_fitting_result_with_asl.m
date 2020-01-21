@@ -1,11 +1,7 @@
-function plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,rhos_arr,region_splits,asl_file,baseline_period,save_plot_fullname);
+function plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,rhos_arr,region_splits,asl_file,analytical_BFi,analytical_beta,baseline_period,save_plot,save_plot_fullname)
 
-% plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,rhos_arr,region_splits,asl_file,baseline_period,save_plot_fullname)
-%
 % plot Monte Carlo fitting results
 % 
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
-%
 % input:
 %   BFi_arr: array of fitted BFi values
 %       either dimension (nchannels, ntimepoints)
@@ -18,10 +14,6 @@ function plot_mc_fitting_result_with_asl(BFi_arr,beta_arr,time_arr,rhos_arr,regi
 %       get_region_splits.m
 %   save_plot_fullname: full filename to save plot
 %   asl_file: name of asl file to load
-%
-% this function is part of the mcgeometry toolbox,
-% (https://github.com/wumelissa/mc_geometry)
-%%
 
 asl_structure=load(asl_file);
 
@@ -37,6 +29,7 @@ for idx=1:length(baseline_period)
 end
 
 normalized_asl=asl_structure.all_avgd_asl/mean(asl_structure.all_avgd_asl(baseline_period_indices_asl(1):baseline_period_indices_asl(2)));
+normalized_analytical=analytical_BFi./repmat(mean(analytical_BFi(baseline_period_indices_optical(1):baseline_period_indices_optical(2),:),1),[size(analytical_BFi,1) 1]);
 
 %%
 
@@ -45,33 +38,38 @@ if length(size(BFi_arr))==2
     
     fig1=figure;
     subplot(211)
+    plot(time_arr,analytical_BFi)
+    hold on
     plot(time_arr,BFi_arr)
     grid on
     xlabel('time (seconds)'); ylabel('BF_i mm^2/s')
-    legend('scalp BF_i','cerebral BF_i');
+    legend([leg_arr,{'scalp BF_i','cerebral BF_i'}]);
     title('BFi')
-    
+        
     subplot(212)
+    plot(time_arr,analytical_beta)
+    hold on
     plot(time_arr,beta_arr)
     grid on
     xlabel('time (seconds)'); ylabel('beta')
-    legend(leg_arr);
+    legend([leg_arr,{'scalp BF_i','cerebral BF_i'}]);
     title('beta')
     drawnow
     
     fig2=figure;
-    plot(time_arr,movmean(normalized_optical,3,2))
+    plot(time_arr,movmean(normalized_analytical,3,1))
     hold on
+    plot(time_arr,movmean(normalized_optical,3,2))
     plot(asl_structure.time_array,movmean(normalized_asl,3,1),'LineWidth',2)
     grid on
     xlabel('seconds'); ylabel('rBFi')
     title('relative BFi, moving mean taken')
-    legend('superficial BFi','deep BFi','ASL')
+    legend([leg_arr,{'scalp BFi','cerebral BFi','ASL'}])
     drawnow
     
-    if ~isempty(save_plot_fullname)
+    if save_plot
         savefig(fig1,[save_plot_fullname '_mc_BFi_timecourse.fig']);
-        savefig(fig2,[save_plot_fullname '_mc_beta_timecourse.fig']);
+        savefig(fig2,[save_plot_fullname '_mc_BFi_normalized_timecourse.fig']);
     end
 else
     all_lengths=cellfun(@length,region_splits);
@@ -82,6 +80,12 @@ else
     
     normalized_optical=BFi_arr./repmat(mean(BFi_arr(:,:,:,baseline_period_indices_optical(1):baseline_period_indices_optical(2)),4),[1 1 1 size(BFi_arr,4)]);
     
+    if save_plot
+       if ~exist([save_plot_fullname filesep],'dir')
+           mkdir([save_plot_fullname filesep])
+       end
+    end
+    
     for sup_thickness=sup_thickness_arr'
         h=figure;
         g=figure;
@@ -91,8 +95,10 @@ else
             
             figure(h);
             subplot(x,y,idx)
+            plot(time_arr,analytical_BFi)
+            hold on
             plot(time_arr,squeeze(BFi_arr(sup_thickness,mid_thickness,:,:))');
-            grid on
+            grid on; grid minor
             xlabel('seconds'); ylabel('BF_i mm^2/s');
             title(['mid thickness ' num2str(mid_thickness) ' mm']);
             drawnow
@@ -100,10 +106,11 @@ else
             single_optical_array=squeeze(normalized_optical(sup_thickness,mid_thickness,:,:));
             figure(g);
             subplot(x,y,idx)
-            plot(time_arr,movmean(single_optical_array,3,2))
+            plot(time_arr,movmean(normalized_analytical,3,1))
             hold on
+            plot(time_arr,movmean(single_optical_array,3,2))
             plot(asl_structure.time_array,movmean(normalized_asl,3,1),'LineWidth',2)
-            grid on
+            grid on; grid minor
             xlabel('seconds'); ylabel('rBFi')
             title(['mid thickness ' num2str(mid_thickness) ' mm'])
             drawnow
@@ -113,12 +120,18 @@ else
         
         figure(h);
         subplot(x,y,1)
-        legend('scalp BF_i','cerebral BF_i');
+        legend([leg_arr,{'scalp BFi','cerebral BFi'}])
         suptitle(['BFi: superficial thickness ' num2str(sup_thickness) ' mm']);
         
         figure(g);
         subplot(x,y,1)
-        legend('scalp BF_i','cerebral BF_i','ASL');
+        legend([leg_arr,{'scalp rBFi','cerebral rBFi','ASL'}])
         suptitle(['rBFi with moving mean: superficial thickness ' num2str(sup_thickness) ' mm']);
+        
+        if save_plot
+            savefig(h,[save_plot_fullname filesep 'sup_thickness_' num2str(sup_thickness) 'mm.fig'])
+            savefig(g,[save_plot_fullname filesep 'sup_thickness_' num2str(sup_thickness) 'mm_asl.fig'])
+        end
+        
     end
 end
