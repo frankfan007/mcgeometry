@@ -2,13 +2,19 @@
  % ====================================== MONTE CARLO BASED BFI FITTING SCRIPT ====================================== %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% This script fits diffuse correlation spectroscopy data against a Monte-Carlo based photon migration forward simulation 
-% The MC simulation utilizes a head volume derived from an MRI scan of a human brain
-% The volume from the MRI scan was subsequently post-processed using iterative image erosion into a 22-layer head volume
-% Each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
+% This script fits diffuse correlation spectroscopy data against a Monte Carlo based photon migration forward simulation 
+% The volume used in the Monte Carlo simulation can be chosen from either a multi-layer slab, a multi-layer sample head, 
+% or a subject-specific MRI scan provided by the user. The multi-layer sample head was derived from a FreeSurfer sample 
+% T1 structural scan
+% and subsequently post-processed using iterative image erosion into a 22-layer head volume
+% For the slab and sample head, each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
 % optical properties for each tissue layer and source-detector locations on head surface
 
 % Please run this section by section to edit parameters as needed
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 
 %%
 

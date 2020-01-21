@@ -2,13 +2,19 @@
  % ====================================== MONTE CARLO BASED BFI FITTING SCRIPT ====================================== %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% This script fits diffuse correlation spectroscopy data against a Monte-Carlo based photon migration forward simulation 
-% The MC simulation utilizes a head volume derived from an MRI scan of a human brain
-% The volume from the MRI scan was subsequently post-processed using iterative image erosion into a 22-layer head volume
-% Each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
+% This script fits diffuse correlation spectroscopy data against a Monte Carlo based photon migration forward simulation 
+% The volume used in the Monte Carlo simulation can be chosen from either a multi-layer slab, a multi-layer sample head, 
+% or a subject-specific MRI scan provided by the user. The multi-layer sample head was derived from a FreeSurfer sample 
+% T1 structural scan
+% and subsequently post-processed using iterative image erosion into a 22-layer head volume
+% For the slab and sample head, each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
 % optical properties for each tissue layer and source-detector locations on head surface
 
 % Please run this section by section to edit parameters as needed
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 
 %% ================================================= PATH SETTINGS ================================================== %%
 
@@ -19,66 +25,12 @@
 subject_id='013';
 session='2';
 
-% ================ freesurfer directory ================ %
+freesurfer_directory='';
+mcx_basepath='';
+iso2mesh_path='';
+mctoolbox_path='.';
 
-dir_struct.freesurfer_dir='/autofs/cluster/freesurfer/centos6_x86_64/stable6_0_0/'; % this is only usable in Linux
-
-% ============ raw data and working folders ============ %
-
-% set basepaths
-if isunix
-    raw_data_serverpath='';
-    wd_serverpath=''; % working directory server path
-    iso2mesh_serverpath='';
-    mcx_serverpath='';
-    dcs_mc_toolbox_serverpath='';
-elseif ispc
-    raw_data_serverpath='\\blinky.nmr.mgh.harvard.edu';
-    wd_serverpath='\\blinky.nmr.mgh.harvard.edu';
-    iso2mesh_serverpath='\\blinky.nmr.mgh.harvard.edu';
-    mcx_serverpath='\\thm.nmr.mgh.harvard.edu';
-    dcs_mc_toolbox_serverpath='\\thm.nmr.mgh.harvard.edu';
-else
-    error('Operating system not supported, please use a Linux or Windows system\n');
-end
-
-% working folder where processed data and volume will be saved
-working_folder_unix=['/space/blinky/4/users/hypercapnia/Subject' subject_id '/Session' session '/'];
-working_folder=[wd_serverpath working_folder_unix]; % hack for Windows
-if ~exist(working_folder,'dir'), mkdir(working_folder);end
-
-% raw data folder where DCS and MRI data is stored
-raw_data_basepath=[raw_data_serverpath '/space/blinky/4/users/hypercapnia/'];
-dir_struct.dcs_file_dir=[raw_data_basepath 'Subject' subject_id '/Session' session '/CW-DCS/']; % directory where DCS data is stored
-dir_struct.mr_dir=[raw_data_basepath 'Subject' subject_id '_recon/mri/']; % directory where T1 is stored
-
-% subject-based MRI volume directory, created in working folder
-dir_struct.volume_dir=[working_folder filesep 'volume'];
-dir_struct.volume_dir_unix=[working_folder_unix filesep 'volume'];
-if ~exist(dir_struct.volume_dir), mkdir(dir_struct.volume_dir);end
-
-% folder to save subject-specific Monte Carlo forward simulation 
-dir_struct.mc_save_dir=[working_folder filesep 'mc'];
-if ~exist(dir_struct.mc_save_dir,'dir'), mkdir(dir_struct.mc_save_dir);end
-
-% ============= software and toolbox paths ============= %
-
-% path where MCX software is stored
-mcx_path='/space/thm/4/users/dibbyan/mcx/';
-dir_struct.mcx_bin=[mcx_path 'bin/mcx'];
-
-% path where iso2mesh software is stored
-iso2mesh_path=[iso2mesh_serverpath '/space/blinky/4/users/hypercapnia/iso2mesh-2018-allinone/iso2mesh/']; 
-
-% path where Monte Carlo geometry toolbox is stored
-dir_struct.dcs_mc_toolbox_unix='/space/thm/4/users/melissa/mcgeometry/';
-dir_struct.dcs_mc_toolbox=[dcs_mc_toolbox_serverpath dir_struct.dcs_mc_toolbox_unix];
-
-% ==================== adding paths ==================== %
-
-addpath(genpath(iso2mesh_path));
-addpath([mcx_serverpath mcx_path '/utils']);
-addpath(genpath(dir_struct.dcs_mc_toolbox));
+dir_struct=set_default_paths(freesurfer_directory,mcx_basepath,iso2mesh_path,mctoolbox_path);
 
 % ============ full timecourse or heat plot ============ %
 
