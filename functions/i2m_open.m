@@ -1,6 +1,6 @@
 function [ img ] = i2m_open( img, arg )
 % Close using iso2mesh functions, fill holes as middle step
-%
+
 % this function is written by:
 % % Perdue KL, Diamond SG; 
 % T1 magnetic resonance imaging head segmentation for diffuse optical tomography and electroencephalography. 

@@ -4,8 +4,6 @@ function [BFi_arr,beta_arr]=analytical_fit_dcs(g2_data,tau,fit_options)
 %
 % returns fitted BFi and beta from an array of g2 (autocorrelation) curves, taus, and input parameter set
 %
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
-%
 % input:
 %   g2_data: array of autocorrelation values for each tau, detector, and timepoint, dimension (ntau,ndetect,ntimepoints)
 %   tau: array of tau values for the autocorrelation, dimension (1,ntau)
@@ -18,12 +16,13 @@ function [BFi_arr,beta_arr]=analytical_fit_dcs(g2_data,tau,fit_options)
 %       lt: index of starting tau value of g2 curve to fit, dimension (1,1)
 %       lsq_options: output of optimoptions, specifying optimization options for lsqcurvefit fn in MATLAB
 %       debug_plot: 0 or 1 flag for watching the fit plotted on a figure, dimension (1,1)
-
+%
 % output:
 %   BFi_arr: array of BFi values for each detector channel and timepoint, dimension (ntimepoints,ndetect)
 %   beta_arr: array of beta values for each detector channel and timepoint,
 %   dimension (ntimepoints,ndetect)
-%
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
 %

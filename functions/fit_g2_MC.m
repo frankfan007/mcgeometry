@@ -4,8 +4,6 @@ function [Dbfit,betafit,rmse,output_stats]=fit_g2_MC(g2_data,mc_his,fit_options)
 %
 % fits for BFi and beta against data from a Monte Carlo forward simulation
 %
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
-%
 % input:
 %   g2_data: array with autocorrelations, dimension (ntau,number of detectors)
 %   mc_his: structure with fields:
@@ -39,6 +37,7 @@ function [Dbfit,betafit,rmse,output_stats]=fit_g2_MC(g2_data,mc_his,fit_options)
 %   rmse: root mean square error (squared norm of the residual, where residual = fun(x,xdata) - ydata), dimension (1,1)
 %   output_stats: output information about optimization process
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
 

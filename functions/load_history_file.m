@@ -3,11 +3,11 @@ function [his_data,photon_indices,photon_fractions_retained,num_tissue_layers]=l
 % [his_data,photon_indices,photon_fractions_retained,num_tissue_layers]=load_history_file(history_filename,max_photons,varargin)
 %
 % reads Monte Carlo photon history file
-
+%
 % input: 
 %   history_filename: full filename of photon history file
 %   max_photons: 
-
+%
 % output:
 %   his_data: photon history array outputted from Monte Carlo simulation
 %       array with path length and momentum transfer information stored for each detected photon
@@ -23,7 +23,7 @@ function [his_data,photon_indices,photon_fractions_retained,num_tissue_layers]=l
 %   photon_fractions_retained: fraction of photons saved out of photons detected for each detector
 %       dimension (1, number of detectors)
 %   num_tissue_layers: number of tissue layers of volume, dimension (1,1)
-%
+
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

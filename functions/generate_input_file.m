@@ -1,12 +1,10 @@
 function generate_input_file(dir_struct,ref_param,mc_param)
 %
 % generate_input_file(dir_struct,ref_param,mc_param)
-%
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % 
 % sets up input parameters and other variables from main script to call write_input_file function
 % creates input file for Monte Carlo simulation
-
+%
 % input:
 %   dir_struct: structure with fields
 %       volume_dir: directory where volume is stored
@@ -22,6 +20,7 @@ function generate_input_file(dir_struct,ref_param,mc_param)
 %       fiducial_point: fiducial point position, dimension (1,3)
 %       vol: volume array, dimension (nx,ny,nz)
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
 

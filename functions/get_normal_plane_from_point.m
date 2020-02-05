@@ -3,12 +3,12 @@ function [node_closest_to_point,plane,point_unit_vec]=get_normal_plane_from_poin
 % [node_closest_to_point,plane,point_unit_vec]=get_normal_plane_from_point(node,face,specified_point)
 %
 % obtains normal plane to center of volume from specified point on volume surface
-
+%
 % input:
 %   node: array containing node coordinates of mesh, dimension (nnodes,3)
 %   face: array containing face coordinates of mesh, dimension (nnodes,4)
 %   fiducial: array containing coordinates of specified point, dimension (1,3)
-
+%
 % output:
 %   node_closest_to_point: coordinates of node closest to point, dimension (1,3)
 %   plane: coordinates that determine normal plane from point, dimension (3,3)

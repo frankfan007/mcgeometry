@@ -3,20 +3,20 @@ function generate_subject_seg(dir_struct,ref_param,mc_param)
 % generate_subject_seg(dir_struct,ref_param,mc_param)
 %
 % sets up parameters to call generate_bin_vol
-
+%
 % input:
 %   dir_struct: structure with fields
 %       volume_dir: directory where volume is contained
 %       freesurfer_dir: directory where freesurfer can be sourced
 %       mr_dir: directory that contains MRI structural scan
-
+%
 %   ref_param: structure with fields
 %       has_fiducial: 0 or 1 flag denoting whether volume has fiducial
-
+%
 %   mc_param: structure with fields
 %       volume_name: name of volume
 %       volume_name_vite: name of volume containing fiducial
-%
+
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

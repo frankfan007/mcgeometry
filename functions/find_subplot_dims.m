@@ -2,16 +2,16 @@ function [x,y]=find_subplot_dims(num_plots)
 %
 %[x,y]=find_subplot_dims(num_plots)
 %
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
-%
 % suggests possible length and width of a subplot array in a figure
-
+%
 % input:
 %   num_plots: number of total subplots
 %
 % output:
 %   x: length of subplot array
 %   y: width of subplot array
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
 %
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

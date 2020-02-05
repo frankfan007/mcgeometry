@@ -1,10 +1,10 @@
 function stackhead=make_stairhead(head)
 
 % uses image erosion to create a multi-tissue layered head volume 
-
+%
 % input:
 %   head: volume, dimension (nx,ny,nz)
-
+%
 % output:
 %   stackhead: volume that was "eroded", dimension (nx,ny,nz)
 

@@ -2,8 +2,6 @@ function MChis=concatenate_layers(his_data,tiss_arr)
 %
 % MChis=concatenate_layers(his_data,tiss_arr)
 %
-% author: Melissa Wu, <mwu22@mgh.harvard.edu>
-%
 % returns concatenated history file with given concatenation parameters and input history file
 %
 % input:
@@ -21,7 +19,8 @@ function MChis=concatenate_layers(his_data,tiss_arr)
 %   MChis: photon history array that has been concatenated from his_data array
 %       dimension (number of detected photons, 1 + 2*(number of concatenated tissue layers))
 %       column information would be analogous to information in his_data
-%
+
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
 
