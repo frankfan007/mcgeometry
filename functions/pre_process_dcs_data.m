@@ -15,7 +15,7 @@ function [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdat
 %       avg_span: average time course parameter, number of data points to fit
 %   dcsdatastruct:
 %       counts: array with photon counts, dimension (timepoint, number of detectors)
-%       g2: array with g2 values, dimension (timepoint, number of detectors, tau)
+%       g2: array with g2 values, dimension (tau, number of detectors, ntimepoint)
 %       tau: array with tau values, dimension (1, tau)
 %       t: array with timepoints corresponding to timepoints in g2 and counts, dimension (1, number of timepoints)
 %
@@ -109,7 +109,7 @@ end
 
 %%
 
-g2_data=permute(data_to_fit,[3 2 1]);
+g2_data=data_to_fit;
 
 difft=diff(time_arr);
 subtext=['Min sample duration: ' num2str(min(difft),'%.2f') ' s, max sample duration: ' num2str(max(difft),'%.2f') ' s'];

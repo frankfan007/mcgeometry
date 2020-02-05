@@ -5,10 +5,9 @@
 % This script fits diffuse correlation spectroscopy data against a Monte Carlo based photon migration forward simulation 
 % The volume used in the Monte Carlo simulation can be chosen from either a multi-layer slab, a multi-layer sample head, 
 % or a subject-specific MRI scan provided by the user. The multi-layer sample head was derived from a FreeSurfer sample 
-% T1 structural scan
-% and subsequently post-processed using iterative image erosion into a 22-layer head volume
-% For the slab and sample head, each layer is 1 mm thick - adjustable parameters (among others) for the MC fwd simulation include
-% optical properties for each tissue layer and source-detector locations on head surface
+% T1 structural scan, and subsequently post-processed using iterative image erosion into a 22-layer head volume
+% For the slab volume and sample head, each layer is 1 mm thick - adjustable parameters (among others) for the 
+% MC forward simulation include optical properties for each tissue layer and source-detector locations on head surface
 
 % Please run this section by section to edit parameters as needed
 
@@ -59,31 +58,10 @@ dcs_file.decimate_factor=1;
 dcs_file.moving_mean_window_length=1; 
 dcs_file.avg_span=3; 
 
-% -------------------------------------------------------------------------
-% EDIT: settings for BFi and beta fitting
-% -------------------------------------------------------------------------
+baseline_period=[1 20];
+save_plot=1;
 
-analytical_fit_options.baseline_period=[1 20]; % in seconds
-analytical_fit_options.save_plot=1;
-
-% more likely to be changed
-analytical_fit_options.mu_a = 0.01; % mm-1
-analytical_fit_options.mu_s = 1; % mm-1
-analytical_fit_options.lambda_dcs = 850*1e-6; % mm-1
-analytical_fit_options.rhos_arr=[5 30]; % mm
-analytical_fit_options.ft=10; % first tau
-analytical_fit_options.lt=116; % last tau
-analytical_fit_options.debug_plot=0; 
-
-% less likely to be changed
-analytical_fit_options.alpha = 1;
-analytical_fit_options.n=1.37; % refractive index
-analytical_fit_options.beta_initial_guess=0.5;
-analytical_fit_options.bfi_initial_guess=2e-6; % mm^2/s
-analytical_fit_options.x0=[analytical_fit_options.beta_initial_guess analytical_fit_options.bfi_initial_guess*1e9]; % beta, then Db
-analytical_fit_options.lb = zeros(size(analytical_fit_options.x0)); % lower bound for fitting
-analytical_fit_options.ub=[]; % upper bound for fitting
-analytical_fit_options.lsq_options = optimoptions('lsqcurvefit','TolFun',1e-8,'Display','off'); % options for lsqcurvefit
+analytical_fit_options=set_analytical_fit_options(baseline_period,save_plot);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ==================================== MONTE CARLO FORWARD SIMULATION SETTINGS ===================================== %%
@@ -97,6 +75,8 @@ volume_cfg.multi_layer_slab=0;
 volume_cfg.multi_layer_head=1;
 volume_cfg.subj_specific_mri=0;
 
+mc_param=set_default_mc_param;
+
 % input and volume file names
 mc_param.inp_filename='stairhead_5_30_mm_085_mus_rotate_0'; % REQUIRED; write without extension .inp ; will use input file if exists or create one under variable name
 mc_param.volume_name_noext=''; % volume name without extension - leave EMPTY if not using subject-specific MRI volume
@@ -104,24 +84,9 @@ mc_param.volume_name_noext=''; % volume name without extension - leave EMPTY if 
 % for wrapping probe around volume - only needed if creating new input file
 ref_param.has_fiducial=0; % for subject-specific MRI generation, leave 0 if using multi-layer head or slab
 ref_param.use_default_fiducial=1; % flag: 1 to use default fiducial location and 0 to choose your own
-ref_param.det_distances=[5 30]; % mm
+ref_param.det_distances=analytical_fit_options.rhos_arr; % mm
 ref_param.fiducial_pos=[]; % if not empty, will automatically use this value as fiducial position
 ref_param.rotate_deg=0; % if not empty, will automatically use this value as rotational degree
-
-% for input file generation
-mc_param.det_radii=[0.7 1]; % in mm
-mc_param.mus=0.85; % either one value for each tissue layer, or single value for all tissue layers
-mc_param.mua=0.01; % single value for all tissue layers
-mc_param.n=1.37; 
-mc_param.g=0.01; 
-mc_param.num_phot_launched=1000000000; 
-
-% for Monte Carlo forward simulation - please see MCX documentation
-mc_param.gpu_number=1; 
-mc_param.max_detected_photons=3000000; % max number of detected photons 
-
-% maximum number of saved photons from the MC history file
-mc_param.max_saved_photons=100000; % number of detected photons to save
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ========================================== MONTE CARLO BFI FIT SETTINGS ========================================== %%
@@ -183,38 +148,6 @@ fit_options.save_plot=1;
 % preparing DCS data, analytical fitting, and plotting final BFi, beta, and intensities
 % -------------------------------------------------------------------------
 
-% measurement filename full path
-dcs_file.measurement_file=[dir_struct.dcs_file_dir filesep dcs_file.filename];
-
-% extra settings for DCS data
-if gen_options.heat_plot + gen_options.full_timecourse ~=1
-    error('Please specify either heat plot or full timecourse\n');
-end
-if gen_options.full_timecourse
-    dcs_file.average_time_segments=0;
-end
-
-% EDIT: PROJECT SPECIFIC DCS DATA PREPARATION FOR DCS PRE-PROCESSING
-if dcs_file.fastdcs
-    dcsdatastruct=prepare_fastdcs_data(dcs_file);
-elseif dcs_file.dcsraw
-    dcsdatastruct=prepare_dcsraw_data(dcs_file);
-end
-
-% pre-processing DCS data
-[g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct);
-
-dcs_file.g2_data=g2_data;
-dcs_file.time_arr=time_arr;
-dcs_file.intensities=intensities;
-dcs_file.tau=tau';
-fit_options.tau=tau';
-
-% fit for BFi and beta and plot
-[analytical_BFi,analytical_beta]=analytical_fit_dcs(g2_data,tau,analytical_fit_options);
-
-analytical_fit_options.save_filename=[working_folder filesep dcs_filename];
-plot_analytical_fit_results(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options)
 
 % -------------------------------------------------------------------------
 % read or generate input file, wraps probe, runs, and reads MC sim
