@@ -14,6 +14,9 @@ function plot_mc_fitting_result(BFi_arr,beta_arr,time_arr,rhos_arr,region_splits
 %       get_region_splits.m
 %   save_plot_fullname: full filename to save plot
 
+% author: Melissa Wu, <mwu22@mgh.harvard.edu>
+% this function is part of the mcgeometry toolbox,
+%(https://github.com/wumelissa/mc_geometry)
 %%
 
 for idx=1:length(baseline_period)

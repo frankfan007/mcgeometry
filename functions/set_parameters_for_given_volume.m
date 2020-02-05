@@ -17,7 +17,7 @@ function [dir_struct,ref_param,mc_param]=set_parameters_for_given_volume(dir_str
 %       multi_layer_slab: 0 or 1 flag
 %       multi_layer_head: 0 or 1 flag
 %       subj_specific_mri: 0 or 1 flag
-
+%
 % output:
 %   dir_struct: added fields include
 %       input_filename: full path to input filename with extension
@@ -26,7 +26,7 @@ function [dir_struct,ref_param,mc_param]=set_parameters_for_given_volume(dir_str
 %   mc_param: added fields include
 %       volume_name: name of volume
 %       meshvol_name: name of mesh that accompanies volume
-%
+
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

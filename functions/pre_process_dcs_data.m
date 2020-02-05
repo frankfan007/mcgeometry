@@ -3,7 +3,7 @@ function [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdat
 % [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct)
 %
 % pre-processes DCS data to average detectors and time segments
-
+%
 % input:
 %   dcs_file: structure with fields:
 %       det_averaging: array specifying which detectors to average, dimension (2, number of averaged detectors)
@@ -28,7 +28,7 @@ function [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdat
 %       dimension (1, ntimepoints)
 %   tau: array with tau values
 %       dimension (1, ntau)
-%
+
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

@@ -5,7 +5,7 @@ function [fullmsg]=ProgressBar(Percent_Done)
 % prints progress bar
 % input:
 %   Percent_Done: percentage of code done
-%
+
 % author: Mitchell Robinson, <mitchbr@mit.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

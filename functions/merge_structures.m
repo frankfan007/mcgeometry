@@ -3,7 +3,7 @@ function finalstruct=merge_structures(structure1,structure2)
 % finalstruct=merge_structures(structure1,structure2)
 %
 % function to merge two structures together
-%
+
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

@@ -3,7 +3,7 @@ function plot_analytical_fit_results(analytical_BFi,analytical_beta,intensities,
 % plot_analytical_fit_results(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options)
 %
 % plot analytical fitting results
-
+%
 % input:
 %   analytical_BFi: array with analytical BFi results, dimension (ntimepoints,nchannels)
 %   analytical_beta: array with analytical beta results, dimension (ntimepoints,nchannels)
@@ -13,7 +13,7 @@ function plot_analytical_fit_results(analytical_BFi,analytical_beta,intensities,
 %       rhos_arr: array with source-detector distances in mm, dimension (1, nchannels)
 %       save_plot: 0 or 1 flag to save plot
 %       save_filename: full filename to save figure
-%
+
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

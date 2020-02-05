@@ -1,4 +1,11 @@
 function [BFi_arr,beta_arr,rmse_arr,output_stats_arr]=parallel_fitdcs_function_multi_combos(layer_combo,region_splits,input_his_array,mc_his,fit_options,g2_data,analytical_BFi)
+%
+% quick function to parallelize fitting for multiple superficial/deep layer
+% combos
+%
+% needs fine-tuning
+
+%%
 
 for layer=1:size(region_splits,2)
     concatenate_tissue_layers_array{layer}=region_splits{layer_combo,layer};

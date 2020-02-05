@@ -6,7 +6,7 @@ function print_box_with_height(text_cell,box_width);
 % input:
 %   text_cell: cell with text for each line, dimension (1,nlines)
 %   box_width: width of box
-%
+
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)

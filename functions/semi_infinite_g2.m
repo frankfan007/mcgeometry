@@ -3,7 +3,7 @@ function y = semi_infinite_g2(x,taus,fit_options)
 % y = semi_infinite_g2(x,taus,fit_options)
 %
 % returns autocorrelation
-
+%
 % input:
 %   x: array with [beta, Db] value
 %   taus: array of taus
@@ -17,6 +17,7 @@ function y = semi_infinite_g2(x,taus,fit_options)
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
+
 %% constant values, variable assignment
 
 mu_a = fit_options.mu_a;
@@ -29,6 +30,7 @@ D = x(2)/1e9;
 
 %%
 %equations
+
 n0=fit_options.n;
 R = -1.440./n0^2+0.710/n0+0.668+0.0636*n0; % Effective reflection coefficient
 ze = 2/3*(1+R)/(1-R); 

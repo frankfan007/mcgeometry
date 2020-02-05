@@ -1,5 +1,10 @@
 function dir_struct=set_default_paths(freesurfer_directory,mcx_basepath,iso2mesh_path,mctoolbox_path)
 
+% set default paths for Monte Carlo processing
+% user should be able to open and adjust paths as needed
+
+%%
+
 addpath(freesurfer_directory);
 
 % working folder where processed data and volume will be saved

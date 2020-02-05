@@ -3,7 +3,7 @@ function ref_param=wrap_probe(ref_param)
 % ref_param=wrap_probe(ref_param)
 %
 % determines source and detector locations on a given volume
-
+%
 % input:
 %   ref_param: structure with fields
 %       vol: volume
@@ -12,7 +12,7 @@ function ref_param=wrap_probe(ref_param)
 %       all_face: 1 x n cell of faces for each tissue layer, where n is the number of tissue layers
 %       det_distances: 1 x d array of distances in mm for detectors, where d is number of detectors
 %       default_fiducial_pos: 1 x 3 source position in generic onionhead
-
+%
 % output:
 %   ref_param: structure with added fields
 %       outer_line: 1 x r cell of outer loops that the source/detectors will lie on,

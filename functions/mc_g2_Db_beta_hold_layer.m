@@ -7,7 +7,7 @@ function result=mc_g2_Db_beta_hold_layer(s,tau,expg2,num_dets,mts,exps,g1_norms,
 % same for mu_a and mu_sp
 % if more than one channel is supplied in expg1, they should be concatenated column
 % vectors
-
+%
 % input:
 %   s: array with 1:num_dets values as initial guesses for beta, and num_dets+1:end values as initial guesses or hold values for BFi
 %       dimension (1, number of detectors + number of tissue layers)
@@ -24,7 +24,6 @@ function result=mc_g2_Db_beta_hold_layer(s,tau,expg2,num_dets,mts,exps,g1_norms,
 %   varargin: 
 %       varargin{1}: flag to show fit figure        
 
-%
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>
 % this function is part of the mcgeometry toolbox,
 %(https://github.com/wumelissa/mc_geometry)
