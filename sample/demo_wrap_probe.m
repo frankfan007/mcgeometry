@@ -1,9 +1,15 @@
 
 % -------------------------------------------------------------------------
-% IN PROGRESS: wrap probe around slab
+% wrap probe around slab
 % -------------------------------------------------------------------------
 
+% make sure you are in mcgeometry toolbox directory
+
+iso2mesh_path=['..' filesep 'iso2mesh'];
+
 addpath(genpath('.'))
+addpath(genpath(iso2mesh_path))
+
 load LargeSlab_MultiLyr1mm_mesh.mat
 
 %% user inputted parameters
@@ -28,4 +34,9 @@ ref_param=wrap_probe(ref_param);
 
 %%
 
-save LargeSlab_MultiLyr1mm_input_parameters.mat ref_param
+source_loc=ref_param.source;
+vol=ref_param.vol;
+detector_loc=ref_param.det_arr;
+source_unit_vec=ref_param.source_unit_vec;
+
+save(['.' filesep 'mc' filesep 'LargeSlab_MultiLyr1mm_input_parameters.mat'], 'source_loc','vol','detector_loc','source_unit_vec')
