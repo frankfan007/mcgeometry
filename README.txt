@@ -22,7 +22,7 @@ License: GNU Public License Version 2.0
 Required software:
 
 iso2mesh (http://iso2mesh.sf.net)
-MCX (http://mcx.space/)
+MCX (for computing systems with GPUs, http://mcx.space/) OR tMCimg (for computing systems without GPUs, http://www.nmr.mgh.harvard.edu/PMI/resources/tmcimg/index.htm)
 FreeSurfer (https://surfer.nmr.mgh.harvard.edu/)
 
 Acknowledgement:
