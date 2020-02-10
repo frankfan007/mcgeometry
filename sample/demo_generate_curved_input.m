@@ -2,15 +2,16 @@
 % generate input file for slab
 % -------------------------------------------------------------------------
 
+cd ..
 addpath(genpath('.'))
-load LargeSlab_MultiLyr1mm_input_parameters.mat
+load stairhead_input_parameters.mat
 
 %% volume directory and name
 
 % setting variables
 volume_direc=[pwd filesep 'volumes']; % full path to volume directory
-volume_name='LargeSlab_MultiLyr1mm.bin';
-input_filename=[pwd filesep 'mc' filesep 'LargeSlab_MultiLyr1mm_085_mus.inp'];
+volume_name='stairhead.bin';
+input_filename=[pwd filesep 'mc' filesep 'stairhead_085_mus.inp'];
 
 %% setting initial parameters
 

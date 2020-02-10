@@ -2,6 +2,7 @@
 % generate input file for slab
 % -------------------------------------------------------------------------
 
+cd ..
 addpath(genpath('.'))
 load LargeSlab_MultiLyr1mm_input_parameters.mat
 

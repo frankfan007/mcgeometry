@@ -3,7 +3,7 @@
 % -------------------------------------------------------------------------
 
 % DCS file information
-dcs_file.dir=['..' filesep 'raw'];
+dcs_file.dir=['.' filesep 'raw'];
 dcs_file.filename='sample_data.mat'; % EDIT
 
 % averaging g2, detectors, and time segments
@@ -16,7 +16,7 @@ dcs_file.average_time_segments=0; % either set zero or give span of seconds you 
 % decimate first, then moving mean, then averaging
 dcs_file.decimate_factor=1; 
 dcs_file.moving_mean_window_length=1; 
-dcs_file.avg_span=1; 
+dcs_file.avg_span=10; 
 
 %% analytical fit options
 
@@ -45,7 +45,7 @@ analytical_fit_options.lsq_options = optimoptions('lsqcurvefit','TolFun',1e-8,'D
 dcs_file.measurement_file=[dcs_file.dir filesep dcs_file.filename];
 
 % prepare DCS data
-dcsdatastruct=prepare_sampledcs_data(dcs_file.measurement_file);
+dcsdatastruct=prepare_sampledcs_data(dcs_file);
 
 % pre-processing DCS data
 [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct);
@@ -66,7 +66,7 @@ end
 h=figure;
 plot(time_arr,analytical_BFi)
 legend(leg_arr)
-grid on
+grid on; grid minor
 xlabel('seconds'); ylabel('BFi mm^2/s')
 title('analytical fit BFi')
 drawnow
@@ -82,7 +82,7 @@ title('analytical fit beta')
 subplot(212)
 plot(time_arr,intensities)
 legend(leg_arr)
-grid on
+grid on; grid minor
 xlabel('seconds'); ylabel('photon counts/second')
 title('intensities')
 drawnow
