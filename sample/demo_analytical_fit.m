@@ -42,7 +42,7 @@ analytical_fit_options.bfi_initial_guess=2e-6; % mm^2/s
 analytical_fit_options.x0=[analytical_fit_options.beta_initial_guess analytical_fit_options.bfi_initial_guess*1e9]; % beta, then Db
 analytical_fit_options.lb = zeros(size(analytical_fit_options.x0)); % lower bound for fitting
 analytical_fit_options.ub=[]; % upper bound for fitting
-analytical_fit_options.lsq_options = optimoptions('lsqcurvefit','Display','off'); % options for lsqcurvefit
+analytical_fit_options.lsq_options = optimoptions('lsqcurvefit','TolFun',1e-5,'TolX',1e-3,'MaxFunEvals',1e5,'MaxIter',1e5,'Display','off'); % options for lsqcurvefit
 
 %% preparing DCS data and fitting
 

@@ -1,7 +1,4 @@
 function finalstruct=merge_structures(structure1,structure2)
-%
-% finalstruct=merge_structures(structure1,structure2)
-%
 % function to merge two structures together
 
 % author: Melissa Wu, <mwu22@mgh.harvard.edu>

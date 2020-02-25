@@ -1,5 +1,4 @@
 function write_input_file(input_filename,mc_param)
-%
 % writes out input file for Monte Carlo photon transport simulation
 %
 % write_input_file(input_filename,mc_param)

@@ -1,6 +1,4 @@
 function [BFi,beta_fit,rmse,output]=parallel_fitdcs_function_single_combo(mc_his,fit_options,g2_data,analytical_BFi,tpt)
-
-%
 % quick function to parallelize fitting for a single superficial/deep layer
 % combos
 %

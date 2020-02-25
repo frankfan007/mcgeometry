@@ -1,12 +1,9 @@
 function [his_data,photon_indices,photon_fractions_retained,num_tissue_layers]=load_history_file(history_filename,max_photons,varargin)
-%
-% [his_data,photon_indices,photon_fractions_retained,num_tissue_layers]=load_history_file(history_filename,max_photons,varargin)
-%
 % reads Monte Carlo photon history file
 %
 % input: 
 %   history_filename: full filename of photon history file
-%   max_photons: 
+%   max_photons: max number of photons to save
 %
 % output:
 %   his_data: photon history array outputted from Monte Carlo simulation

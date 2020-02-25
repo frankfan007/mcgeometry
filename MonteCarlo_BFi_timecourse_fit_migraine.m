@@ -2,6 +2,11 @@
  % ====================================== MONTE CARLO BASED BFI FITTING SCRIPT ====================================== %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% CURRENTLY EDITING: NO LONGER IN USE. SEE SAMPLES FOLDER FOR DEMOS OF
+% PARTICULAR FUNCTIONS
+
+%%
+
 % This script fits diffuse correlation spectroscopy data against a Monte Carlo based photon migration forward simulation 
 % The volume used in the Monte Carlo simulation can be chosen from either a multi-layer slab, a multi-layer sample head, 
 % or a subject-specific MRI scan provided by the user. The multi-layer sample head was derived from a FreeSurfer sample 

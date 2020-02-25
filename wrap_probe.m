@@ -1,7 +1,4 @@
 function ref_param=wrap_probe(ref_param)
-%
-% ref_param=wrap_probe(ref_param)
-%
 % determines source and detector locations on a given volume
 %
 % input:

@@ -1,4 +1,5 @@
 function dcsdatastruct=prepare_sampledcs_data(dcs_file)
+% prepares sample DCS data
 
 load([dcs_file.measurement_file]);
 

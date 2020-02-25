@@ -1,7 +1,4 @@
 function result=mc_g2_Db_beta_hold_layer(s,tau,expg2,num_dets,mts,exps,g1_norms,num_layers,hold_layer_indices,hold_layer_values,k0,varargin)
-%
-% result=mc_g2_Db_beta_hold_layer(s,tau,expg2,num_dets,mts,exps,g1_norms,num_layers,hold_layer_indices,hold_layer_values,k0,varargin)
-%
 % returns g2 for each detector named in the chs variable
 % must receive either single Db value, or one Db for each tissue type
 % same for mu_a and mu_sp

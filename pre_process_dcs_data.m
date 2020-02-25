@@ -1,7 +1,4 @@
 function [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct)
-%
-% [g2_data,time_arr,intensities,tau]=pre_process_dcs_data(dcs_file,dcsdatastruct)
-%
 % pre-processes DCS data to average detectors and time segments
 %
 % input:

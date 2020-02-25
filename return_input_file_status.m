@@ -1,7 +1,4 @@
 function input_file_status=return_input_file_status(input_filename);
-%
-% input_file_status=return_input_file_status(input_filename);
-%
 % returns input file status
 %
 % input:

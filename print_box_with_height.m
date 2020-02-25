@@ -1,7 +1,4 @@
 function print_box_with_height(text_cell,box_width);
-%
-% print_box_with_height(text_cell,box_width);
-%
 % prints box with variable lines of text
 % input:
 %   text_cell: cell with text for each line, dimension (1,nlines)

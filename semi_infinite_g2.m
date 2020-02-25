@@ -1,8 +1,6 @@
 function y = semi_infinite_g2(x,taus,fit_options)
-%
-% y = semi_infinite_g2(x,taus,fit_options)
-%
-% returns autocorrelation
+% returns autocorrelation using semi-infinite diffusion correlation
+% equation
 %
 % input:
 %   x: array with [beta, Db] value

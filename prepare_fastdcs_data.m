@@ -1,6 +1,5 @@
 function dcsdatastruct=prepare_fastdcs_data(dcs_file);
-%
-% dcsdatastruct=prepare_fastdcs_data(dcs_file);
+% prepares fastdcs data
 %
 % input:
 %   dcs_file: structure with fields

@@ -1,7 +1,4 @@
 function plot_analytical_fit_results(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options)
-%
-% plot_analytical_fit_results(analytical_BFi,analytical_beta,intensities,time_arr,analytical_fit_options)
-%
 % plot analytical fitting results
 %
 % input:

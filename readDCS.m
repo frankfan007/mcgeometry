@@ -1,7 +1,4 @@
 function rawDCS=readDCS(filename)
-%
-% rawDCS=readDCS(filename)
-%
 % reads DCS file from MetaOx
 % input:
 %   filename: full filename of .dcsraw file

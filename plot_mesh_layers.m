@@ -1,7 +1,4 @@
 function plot_mesh_layers(all_node,all_face)
-%
-% plot_mesh_layers(all_node,all_face)
-%
 % plots mesh for volume with multiple tissue types
 % input:
 %   all_node: cell with arrays of nodes for each tissue layer, dimension (1, ntissue layers)

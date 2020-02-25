@@ -1,7 +1,4 @@
 function [BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs(g2_data,fit_options,mc_his,region_splits,analytical_BFi)
-%
-% [BFi_arr,beta_arr,rmse_arr,output_stats_arr]=loop_and_fit_dcs(g2_data,fit_options,mc_his,region_splits,analytical_BFi)
-%
 % loops through timepoints of array with g2 data and fits each timepoint for BFi and beta
 %
 % input:

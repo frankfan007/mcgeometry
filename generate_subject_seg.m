@@ -1,7 +1,4 @@
 function generate_subject_seg(dir_struct,ref_param,mc_param)
-%
-% generate_subject_seg(dir_struct,ref_param,mc_param)
-%
 % sets up parameters to call generate_bin_vol
 %
 % input:

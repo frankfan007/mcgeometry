@@ -1,7 +1,4 @@
 function run_mc_simulation(dir_struct,mc_param,mcx_flag)
-%
-% run_mc_simulation(dir_struct,mc_param)
-%
 % runs Monte Carlo simulation
 % 
 % input:
@@ -39,5 +36,13 @@ if mcx_flag
         system(sprintf('%s -f %s -m 1 -D P -G %d -H %d',dir_struct.mcx_bin,final_filename,mc_param.gpu_number,mc_param.max_detected_photons));
     end
 else
-    
+    if ~isunix
+        fprintf(['Please run the following command in a Linux workstation:\n'...
+            '%s %s \n'],dir_struct.mcx_bin,final_filename);
+        uiwait(msgbox('Dismiss this when simulation is complete'));
+    else
+        fprintf(['Running simulation command:\n'...
+            '%s %s \n'],dir_struct.mcx_bin,final_filename,mc_param.gpu_number,mc_param.max_detected_photons);
+        system(sprintf( '%s %s \n',dir_struct.mcx_bin,final_filename));
+    end
 end

@@ -1,6 +1,5 @@
 function dcsdatastruct=prepare_dcsraw_data(measurement_filename,g2freq);
-%
-% dcsdatastruct=prepare_dcsraw_data(dcs_file);
+% prepares .dcsraw data
 %
 % input:
 %   dcs_file: structure with fields

@@ -1,5 +1,4 @@
 function [ img ] = i2m_close( img, arg )
-%
 % Close using iso2mesh functions, fill holes as middle step
 
 % this function is written by:

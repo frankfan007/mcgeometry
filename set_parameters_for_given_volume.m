@@ -1,8 +1,5 @@
 
 function [dir_struct,ref_param,mc_param]=set_parameters_for_given_volume(dir_struct,ref_param,mc_param,volume_cfg)
-%
-% [dir_struct,ref_param,mc_param]=set_parameters_for_given_volume(dir_struct,ref_param,mc_param,volume_cfg)
-%
 % setting parameters for given volume
 % input:
 %   dir_struct: structure with fields

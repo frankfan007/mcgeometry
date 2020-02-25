@@ -1,7 +1,4 @@
 function regions_to_split=get_region_splits(sup_thicknesses,mid_thicknesses,total_layers)
-%
-% regions_to_split=get_region_splits(sup_thicknesses,mid_thicknesses,total_layers)
-%
 % creates cell array containing arrays to split layers by
 %
 % input: 

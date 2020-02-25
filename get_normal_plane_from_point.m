@@ -1,7 +1,4 @@
 function [node_closest_to_point,plane,point_unit_vec]=get_normal_plane_from_point(node,face,specified_point)
-%
-% [node_closest_to_point,plane,point_unit_vec]=get_normal_plane_from_point(node,face,specified_point)
-%
 % obtains normal plane to center of volume from specified point on volume surface
 %
 % input:

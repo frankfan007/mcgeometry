@@ -1,7 +1,4 @@
-function [fullmsg]=ProgressBar(Percent_Done)
-%
-% [fullmsg]=ProgressBar(Percent_Done)
-% 
+function [fullmsg]=ProgressBar(Percent_Done) 
 % prints progress bar
 % input:
 %   Percent_Done: percentage of code done

@@ -1,7 +1,4 @@
 function print_box(text1,subtext,box_width);
-%
-% print_box(text1,subtext,box_width);
-%
 % prints a nice text box
 % input:
 %   text1: title text
