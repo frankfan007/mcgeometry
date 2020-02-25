@@ -13,4 +13,3 @@ mesh_filename='sample_volume_mesh.mat';
 %%
 
 volume_structure=generate_mri_mesh(volume_dir,toolbox_dir,volume_name,mesh_filename);
-

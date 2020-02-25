@@ -2,6 +2,9 @@
 % generate binary volume from T1.mgz file
 % -------------------------------------------------------------------------
 
+cd ..
+addpath(genpath('.'))
+
 %%
 
 dir_struct.freesurfer_dir='';

@@ -1,4 +1,4 @@
-function dcsdatastruct=prepare_dcsraw_data(dcs_file);
+function dcsdatastruct=prepare_dcsraw_data(measurement_filename,g2freq);
 %
 % dcsdatastruct=prepare_dcsraw_data(dcs_file);
 %
@@ -11,9 +11,7 @@ function dcsdatastruct=prepare_dcsraw_data(dcs_file);
 %(https://github.com/wumelissa/mc_geometry)
 %%
 
-rawDCS=readDCS(dcs_file.measurement_file);
-
-g2freq=dcs_file.g2freq;
+rawDCS=readDCS(measurement_filename);
 
 %%
 
