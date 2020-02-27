@@ -4,7 +4,7 @@ function [his_data,photon_indices,photon_fractions_retained,num_tissue_layers]=l
 % input: 
 %   history_filename: full filename of photon history file
 %   max_photons: max number of photons to save
-%
+%   
 % output:
 %   his_data: photon history array outputted from Monte Carlo simulation
 %       array with path length and momentum transfer information stored for each detected photon
@@ -32,6 +32,14 @@ end
 
 %% reading history file
 
+if exist([history_filename '.mch'],'file')
+    mcx_flag=1;
+elseif exist([history_filename '.his'],'file')
+    mcx_flag=0;
+else
+    error('Cannot find photon history file\n');
+end
+
 history_filename=[history_filename '.mch'];
 [his_temp,~,~]=loadmch(history_filename);
 his_temp=his_temp(:,[1 3:end]);
@@ -54,6 +62,7 @@ end
     
 photon_fractions_retained(photon_fractions_retained>1)=1;
 num_tissue_layers=(size(his_data,2)-1)/2;
+
 %% print box
 
 if exist('detector_names','var')

@@ -75,10 +75,10 @@ if size(region_splits,1)==1
     
     parfor idx=1:length(fit_options.tpts_to_fit)
         tpt=tpts_to_fit(idx);
-        fprintf('Fitting file %d out of %d \n ',idx,length(fit_options.tpts_to_fit))
+        fprintf('Fitting timepoint %d out of %d \n ',idx,length(fit_options.tpts_to_fit))
         tic
         [BFi_arr(:,idx),beta_arr(:,idx),rmse_arr(:,idx),output_stats_arr(:,idx)]=parallel_fitdcs_function_single_combo(mc_his,fit_options,g2_data,analytical_BFi,tpt);
-        fprintf('Finished in %2.2f seconds', toc)
+        fprintf('Finished in %2.2f seconds\n', toc)
     end
     
 elseif size(region_splits,1)>1
@@ -96,9 +96,11 @@ elseif size(region_splits,1)>1
     regions=region_splits;
         
     parfor layer_combo=1:size(region_splits,1)
-        
+        fprintf('Fitting file %d out of %d \n ',layer_combo,size(region_splits,1))
+        tic
         [temp_BFi_arr(layer_combo,:,:),temp_beta_arr(layer_combo,:,:),temp_rmse_arr(layer_combo,:),temp_output_stats_arr(layer_combo,:)]=parallel_fitdcs_function_multi_combos(layer_combo,...
             region_splits,input_his_array,mc_his,fit_options,g2_data,analytical_BFi);
+        fprintf('Finished in %2.2f seconds\n', toc)
     end
     
     for layer_combo=1:size(region_splits,1)

@@ -58,6 +58,9 @@ dcsdatastruct=prepare_sampledcs_data(dcs_file);
 % fit for BFi and beta and plot
 [analytical_BFi,analytical_beta]=analytical_fit_dcs(g2_data,tau,analytical_fit_options);
 
+save(['.' filesep 'results' filesep 'sample_data_analytical_fit.mat'],'analytical_BFi',...
+    'analytical_beta','g2_data','time_arr','intensities','tau','dcsdatastruct','analytical_fit_options',...
+    'dcs_file')
 %% plotting parameters
 
 rhos_arr=analytical_fit_options.rhos_arr;
